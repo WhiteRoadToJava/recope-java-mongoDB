@@ -1,4 +1,5 @@
 package com.example.cocks_recipe.service.recipe;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,10 +36,14 @@ public class RecipeServiceImpl implements RecipeService  {
                                 throw new IllegalArgumentException("Invalid request or user.");
                 }
                 User user = Optional.ofNullable(userRepository.findByUsername(request.getUser().getUsername())).map(existingUser -> {
+                        if (existingUser.getRecipes() == null) {
+                                existingUser.setRecipes(new HashSet<>()); // Initialize if null
+                        }
                         existingUser.getRecipes().add(request.getRecipe());
                         return existingUser;
                 }).orElseGet(() -> {
                         User newUser = new User(request.getUser().getUsername());
+                        // When creating a new user, the constructor will ensure recipes is initialized
                         userRepository.save(newUser);
                         return newUser;
                 });

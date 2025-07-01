@@ -1,4 +1,5 @@
 package com.example.cocks_recipe.controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +52,7 @@ public class RecipeController {
         @DeleteMapping("/{recipeId}/delete")
         public ResponseEntity<Void> deleteRecipe(@PathVariable String recipeId) {
                 recipeService.deleteRecipe(recipeId);
-                return ResponseEntity.status(204).build();
+                return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
         @GetMapping()
@@ -61,7 +62,7 @@ public class RecipeController {
         
 
         @GetMapping("/{recipeId}/recipe")
-        public ResponseEntity<Recipe> getRecipe(String recipeId) {
+        public ResponseEntity<Recipe> getRecipe(@PathVariable String recipeId) {
                 return ResponseEntity.ok(recipeService.getRecipeById(recipeId));
         }
 
