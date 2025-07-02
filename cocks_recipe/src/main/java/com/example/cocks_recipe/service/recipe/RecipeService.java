@@ -3,6 +3,7 @@ package com.example.cocks_recipe.service.recipe;
 import java.util.List;
 import java.util.Set;
 
+import com.example.cocks_recipe.dto.RecipeDto;
 import com.example.cocks_recipe.model.Recipe;
 import com.example.cocks_recipe.model.User;
 import com.example.cocks_recipe.request.CreateRecipeRequest;
@@ -23,6 +24,11 @@ public interface RecipeService {
         Set<String> getAllRecipesCategories();
 
         Set<String> getAllRecipesCuisine();
+
+        RecipeDto converToDto(Recipe recipe);
+        List<RecipeDto> convertToDtoList(List<Recipe> recipes);
+
+        
 
         static Recipe creaRecipe(CreateRecipeRequest request, User user) {
                 Recipe recipe = new Recipe();

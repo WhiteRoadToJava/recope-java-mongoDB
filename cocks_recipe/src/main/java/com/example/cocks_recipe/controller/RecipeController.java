@@ -2,6 +2,7 @@ package com.example.cocks_recipe.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.cocks_recipe.dto.RecipeDto;
 import com.example.cocks_recipe.model.Recipe;
 import com.example.cocks_recipe.request.CreateRecipeRequest;
 import com.example.cocks_recipe.request.RecipeUpdateRequest;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,13 +41,17 @@ public class RecipeController {
 
 
     @PostMapping()
-        public ResponseEntity<Recipe> createRecipe(@RequestBody CreateRecipeRequest request) {
-                System.out.println("Creating recipe:+++++++++++++++++++ " + request + "++++++++++++++++++++" + request.getUser());
-                return ResponseEntity.status(200).body(recipeService.createRecipe(request));
+        public ResponseEntity<RecipeDto> createRecipe(@RequestBody CreateRecipeRequest request) {
+                Recipe createdRecipe = recipeService.createRecipe(request);
+                RecipeDto recipeDto = recipeService.converToDto(createdRecipe);
+                return new ResponseEntity<>(recipeDto, HttpStatus.CREATED);
+                
         }
         @PutMapping("/{recipeid}/update")
-        public ResponseEntity<Recipe> updateRecipe(@RequestBody RecipeUpdateRequest request, @PathVariable String id) {
-                return ResponseEntity.status(200).body(recipeService.updateRecipe(request, id));
+        public ResponseEntity<RecipeDto> updateRecipe(@RequestBody RecipeUpdateRequest request, @PathVariable String id) {
+                Recipe updatedRecipe = recipeService.updateRecipe(request, id);
+                RecipeDto recipeDto = recipeService.converToDto(updatedRecipe);
+                return new ResponseEntity<>(recipeDto, HttpStatus.OK);
         }
 
         @DeleteMapping("/{recipeId}/delete")
@@ -55,14 +61,19 @@ public class RecipeController {
         }
 
         @GetMapping()
-        public ResponseEntity<List<Recipe>> getAllReecipes() {
-                return ResponseEntity.ok(recipeService.getAllRecipes());
+        public ResponseEntity<List<RecipeDto>> getAllReecipes() {
+                List<Recipe> allRecipes = recipeService.getAllRecipes();
+                List<RecipeDto> recipes = recipeService.convertToDtoList(allRecipes);
+                return ResponseEntity.ok(recipes);
         }
         
 
         @GetMapping("/{recipeId}/recipe")
-        public ResponseEntity<Recipe> getRecipe(String recipeId) {
-                return ResponseEntity.ok(recipeService.getRecipeById(recipeId));
+        public ResponseEntity<RecipeDto> getRecipe(String recipeId) {
+                Recipe recipe = recipeService.getRecipeById(recipeId);
+                RecipeDto recipeDto = recipeService.converToDto(recipe);
+                return new ResponseEntity<>(recipeDto, HttpStatus.OK);
+                
         }
 
         @GetMapping("/categories")

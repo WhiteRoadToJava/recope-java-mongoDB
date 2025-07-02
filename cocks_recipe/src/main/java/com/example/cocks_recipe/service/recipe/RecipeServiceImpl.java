@@ -4,9 +4,12 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.RequiredArgsConstructor;
+
+import com.example.cocks_recipe.dto.RecipeDto;
+import com.example.cocks_recipe.dto.UserDto;
 import com.example.cocks_recipe.model.Recipe;
 import com.example.cocks_recipe.model.User;
 import com.example.cocks_recipe.repository.RecipeRepository;
@@ -22,10 +25,12 @@ public class RecipeServiceImpl implements RecipeService  {
         @Autowired
         private final RecipeRepository recipeRepsitory;
         private final UserRepository userRepository;
+        private final ModelMapper modelMapper;
 
-        public RecipeServiceImpl(RecipeRepository recipeRepsitory, UserRepository userRepository) {
+        public RecipeServiceImpl(RecipeRepository recipeRepsitory, UserRepository userRepository, ModelMapper modelMapper) {
                 this.recipeRepsitory = recipeRepsitory;
                 this.userRepository = userRepository;
+                this.modelMapper = modelMapper;
         }
 
 
@@ -83,6 +88,21 @@ public class RecipeServiceImpl implements RecipeService  {
                 return recipeRepsitory.findAll()
                                 .stream()
                                 .map(Recipe::getCuisine).collect(Collectors.toSet());
+        }
+
+
+
+        @Override
+        public RecipeDto converToDto(Recipe recipe) {
+                RecipeDto recipeDto = modelMapper.map(recipe, RecipeDto.class);
+                UserDto userDto = modelMapper.map(recipe.getUser(), UserDto.class);
+                recipeDto.setUser(userDto);
+                return recipeDto;
+        }
+        @Override
+        public List<RecipeDto> convertToDtoList(List<Recipe> recipes) {
+                return recipes.stream().map(this:: converToDto)
+                                .collect(Collectors.toList());
         }
 
 }
