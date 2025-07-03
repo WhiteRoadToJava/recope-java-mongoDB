@@ -30,7 +30,7 @@ public interface RecipeService {
 
         
 
-        static Recipe creaRecipe(CreateRecipeRequest request, User user) {
+        static Recipe createRecipe(CreateRecipeRequest request, User user) {
                 Recipe recipe = new Recipe();
                 Recipe createRequest = request.getRecipe();
                 recipe.setTitle(createRequest.getTitle());
@@ -41,6 +41,7 @@ public interface RecipeService {
                 recipe.setInstuction(createRequest.getInstuction());
                 recipe.setPrepTime(createRequest.getPrepTime());
                 recipe.setCookTime(createRequest.getCookTime());
+                recipe.setImage(createRequest.getImage());
                 recipe.setUser(user);
                 return recipe;
         }

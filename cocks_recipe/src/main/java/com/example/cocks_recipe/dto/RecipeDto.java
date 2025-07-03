@@ -12,6 +12,6 @@ public class RecipeDto {
         private String cookTime;
         private String category;
         private String cuisine;
+        private ImageDto imageDto;
         private UserDto user;
-
 }

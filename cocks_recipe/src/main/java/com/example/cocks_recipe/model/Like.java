@@ -25,4 +25,8 @@ public class Like {
         @Field("user_id")
         @DBRef
         private User user;
+
+        public Like (Recipe recipe) {
+                this.recipe = recipe;
+        }
 }

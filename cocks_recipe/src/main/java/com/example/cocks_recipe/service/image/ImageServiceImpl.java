@@ -9,17 +9,17 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.cocks_recipe.dto.ImageDto;
 import com.example.cocks_recipe.model.Image;
 import com.example.cocks_recipe.model.Recipe;
-import com.example.cocks_recipe.repository.ImageRepisitory;
+import com.example.cocks_recipe.repository.ImageRepository;
 import com.example.cocks_recipe.service.recipe.RecipeService;
 
 @Service
 
 public class ImageServiceImpl implements ImageService {
         @Autowired
-        private final ImageRepisitory imageRepository;
+        private final ImageRepository imageRepository;
         private final RecipeService recipeService;
 
-        public ImageServiceImpl(ImageRepisitory imageRepository, RecipeService recipeService) {
+        public ImageServiceImpl(ImageRepository imageRepository, RecipeService recipeService) {
                 this.imageRepository = imageRepository;
                 this.recipeService = recipeService;
         }
