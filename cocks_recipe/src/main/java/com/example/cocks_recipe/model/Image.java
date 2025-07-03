@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 
 
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Document(collection = "images")
 public class Image {
         @Id
@@ -34,7 +31,11 @@ public class Image {
         @Field("recipe_id")
         private Recipe recipe;
 
-         public Image(String fileName, String fileType, byte[] blobImage, String downloadUrl, Recipe recipe) {
+
+    public Image() {
+    }
+
+    public Image(String fileName, String fileType, byte[] blobImage, String downloadUrl, Recipe recipe) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.blobImage = blobImage;
@@ -43,5 +44,51 @@ public class Image {
     }
 
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
+    public byte[] getBlobImage() {
+        return blobImage;
+    }
+
+    public void setBlobImage(byte[] blobImage) {
+        this.blobImage = blobImage;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }

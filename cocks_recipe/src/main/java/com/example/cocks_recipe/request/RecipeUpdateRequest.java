@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 
-@Data
+
 public class RecipeUpdateRequest {
         private String title;
         private String instuction;

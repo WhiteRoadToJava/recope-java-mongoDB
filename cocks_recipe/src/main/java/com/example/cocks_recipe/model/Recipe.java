@@ -11,8 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import lombok.Data;
 
 
-
-@Data
 @Document(collection = "recipes")
 public class Recipe {
    @Id
@@ -67,5 +65,131 @@ public class Recipe {
      public Recipe() {
      }
 
+     public String getId() {
+          return id;
+     }
 
+     public void setId(String id) {
+          this.id = id;
+     }
+
+     public String getTitle() {
+          return title;
+     }
+
+     public void setTitle(String title) {
+          this.title = title;
+     }
+
+     public String getInstuction() {
+          return instuction;
+     }
+
+     public void setInstuction(String instuction) {
+          this.instuction = instuction;
+     }
+
+     public String getDescription() {
+          return description;
+     }
+
+     public void setDescription(String description) {
+          this.description = description;
+     }
+
+     public String getPrepTime() {
+          return prepTime;
+     }
+
+     public void setPrepTime(String prepTime) {
+          this.prepTime = prepTime;
+     }
+
+     public String getCookTime() {
+          return cookTime;
+     }
+
+     public void setCookTime(String cookTime) {
+          this.cookTime = cookTime;
+     }
+
+     public String getCategory() {
+          return category;
+     }
+
+     public void setCategory(String category) {
+          this.category = category;
+     }
+
+     public String getCuisine() {
+          return cuisine;
+     }
+
+     public void setCuisine(String cuisine) {
+          this.cuisine = cuisine;
+     }
+
+     public List<String> getIngredients() {
+          return ingredients;
+     }
+
+     public void setIngredients(List<String> ingredients) {
+          this.ingredients = ingredients;
+     }
+
+     public int getLikeCount() {
+          return likeCount;
+     }
+
+     public void setLikeCount(int likeCount) {
+          this.likeCount = likeCount;
+     }
+
+     public double getAvarageRating() {
+          return avarageRating;
+     }
+
+     public void setAvarageRating(double avarageRating) {
+          this.avarageRating = avarageRating;
+     }
+
+     public int getTotalReviews() {
+          return totalReviews;
+     }
+
+     public void setTotalReviews(int totalReviews) {
+          this.totalReviews = totalReviews;
+     }
+
+     public User getUser() {
+          return user;
+     }
+
+     public void setUser(User user) {
+          this.user = user;
+     }
+
+     public List<Review> getReviews() {
+          return reviews;
+     }
+
+     public void setReviews(List<Review> reviews) {
+          this.reviews = reviews;
+     }
+
+     public List<Like> getLikes() {
+          return likes;
+     }
+
+     public void setLikes(List<Like> likes) {
+          this.likes = likes;
+     }
+
+     public Image getImage() {
+          return image;
+     }
+
+     public void setImage(Image image) {
+          this.image = image;
+     }
 }

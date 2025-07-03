@@ -9,9 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Document(collection = "reviews")
 public class Review {
         @Id
@@ -26,4 +24,55 @@ public class Review {
         @DBRef
         @Field("recipe_id")
         private Recipe recipe;
+
+        public Review() {
+        }
+
+        public Review(String id, int stars, String feedback, User user, Recipe recipe) {
+                this.id = id;
+                this.stars = stars;
+                this.feedback = feedback;
+                this.user = user;
+                this.recipe = recipe;
+        }
+
+        public String getId() {
+                return id;
+        }
+
+        public void setId(String id) {
+                this.id = id;
+        }
+
+        public int getStars() {
+                return stars;
+        }
+
+        public void setStars(int stars) {
+                this.stars = stars;
+        }
+
+        public String getFeedback() {
+                return feedback;
+        }
+
+        public void setFeedback(String feedback) {
+                this.feedback = feedback;
+        }
+
+        public User getUser() {
+                return user;
+        }
+
+        public void setUser(User user) {
+                this.user = user;
+        }
+
+        public Recipe getRecipe() {
+                return recipe;
+        }
+
+        public void setRecipe(Recipe recipe) {
+                this.recipe = recipe;
+        }
 }

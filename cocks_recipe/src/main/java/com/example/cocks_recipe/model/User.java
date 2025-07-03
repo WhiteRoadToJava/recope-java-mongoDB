@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import lombok.Data;
 
 
-@Data
 @Document(collection = "users")
 public class User {
       @Id

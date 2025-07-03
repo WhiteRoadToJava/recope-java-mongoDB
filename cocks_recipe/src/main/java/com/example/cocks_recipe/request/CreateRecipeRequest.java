@@ -5,7 +5,7 @@ import com.example.cocks_recipe.model.User;
 
 import lombok.Data;
 
-@Data
+
 public class CreateRecipeRequest {
         private Recipe recipe;
         private User user;

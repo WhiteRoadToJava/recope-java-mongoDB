@@ -108,10 +108,10 @@ public class RecipeServiceImpl implements RecipeService {
         public RecipeDto converToDto(Recipe recipe) {
                 RecipeDto recipeDto = modelMapper.map(recipe, RecipeDto.class);
                 UserDto userDto = modelMapper.map(recipe.getUser(), UserDto.class);
-
+/*
                 Optional<Image> image = Optional.ofNullable(imageRepository.findByRecipeId(recipe.getId()));
                 image.map(img -> modelMapper.map(img, ImageDto.class)).ifPresent(recipeDto::setImageDto);
-                
+                */
 
                 recipeDto.setUser(userDto);
                 return recipeDto;
