@@ -15,6 +15,10 @@ public class RecipeDto {
         private String category;
         private String cuisine;
         private ImageDto imageDto;
+        private Long like;
+
+
+
         private UserDto user;
 
 
@@ -80,6 +84,14 @@ public class RecipeDto {
 
         public void setCuisine(String cuisine) {
                 this.cuisine = cuisine;
+        }
+
+        public Long getLike() {
+                return like;
+        }
+
+        public void setLike(Long like) {
+                this.like = like;
         }
 
         public ImageDto getImageDto() {

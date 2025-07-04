@@ -39,33 +39,27 @@ public class RecipeServiceImpl implements RecipeService {
                 this.modelMapper = modelMapper;
                 this.imageRepository = imageRepository;
         }
-
         @Override
         public Recipe createRecipe(CreateRecipeRequest request) {
-                if (request == null || request.getUser() == null || request.getRecipe() == null) {
-                        throw new IllegalArgumentException("Invalid request, user, or recipe.");
+                if (request == null || request.getUser() == null) {
+                        throw new IllegalArgumentException("Invalid request or user.");
                 }
-                User user = Optional.ofNullable(userRepository.findByUsername(request.getUser().getUsername()))
-                                .map(existingUser -> {
-                                        if (existingUser.getRecipes() == null) {
-                                                existingUser.setRecipes(new HashSet<>());
-                                        }
-                                        existingUser.getRecipes().add(request.getRecipe());
-                                        User savedUser = userRepository.save(existingUser); // Save and get the
-                                                                                            // persisted user with id
-                                        return savedUser;
-                                }).orElseGet(() -> {
-                                        User newUser = new User(request.getUser().getUsername());
-                                        newUser.setRecipes(new HashSet<>());
-                                        User savedUser = userRepository.save(newUser); // Save and get the persisted
-                                                                                       // user with id
-                                        return savedUser;
-                                });
-                // Now user has a valid id
+                User user = Optional.ofNullable(userRepository.findByUsername(request.getUser().getUsername())).map(existingUser -> {
+                        if (existingUser.getRecipes() == null) {
+                                existingUser.setRecipes(new HashSet<>()); // Initialize if null
+                        }
+                        existingUser.getRecipes().add(request.getRecipe());
+                        return existingUser;
+                }).orElseGet(() -> {
+                        User newUser = new User(request.getUser().getUsername());
+                        // When creating a new user, the constructor will ensure recipes is initialized
+                        userRepository.save(newUser);
+                        return newUser;
+                });
+
                 Recipe recipe = RecipeService.createRecipe(request, user);
                 return recipeRepository.save(recipe);
         }
-
         @Override
         public Recipe updateRecipe(RecipeUpdateRequest request, String recipeId) {
                 Recipe recipe = getRecipeById(recipeId);
@@ -108,10 +102,11 @@ public class RecipeServiceImpl implements RecipeService {
         public RecipeDto converToDto(Recipe recipe) {
                 RecipeDto recipeDto = modelMapper.map(recipe, RecipeDto.class);
                 UserDto userDto = modelMapper.map(recipe.getUser(), UserDto.class);
-/*
+
                 Optional<Image> image = Optional.ofNullable(imageRepository.findByRecipeId(recipe.getId()));
                 image.map(img -> modelMapper.map(img, ImageDto.class)).ifPresent(recipeDto::setImageDto);
-                */
+
+
 
                 recipeDto.setUser(userDto);
                 return recipeDto;
