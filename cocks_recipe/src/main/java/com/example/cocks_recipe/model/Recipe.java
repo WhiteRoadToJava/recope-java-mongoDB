@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 
-import lombok.Data;
+
 
 
 @Document(collection = "recipes")
@@ -27,7 +27,7 @@ public class Recipe {
         private List<String> ingredients;
         private int likeCount;
         private double avarageRating;
-        private int totalReviews;
+        private int totalRateCount;
 
         @DBRef
         @Field("user_id")
@@ -43,7 +43,7 @@ public class Recipe {
         private Image image;
 
 
-     public Recipe(String id, String title, String instuction, String description, String prepTime, String cookTime, String category, String cuisine, List<String> ingredients, int likeCount, double avarageRating, int totalReviews, User user, List<Review> reviews, List<Like> likes, Image image) {
+     public Recipe(String id, String title, String instuction, String description, String prepTime, String cookTime, String category, String cuisine, List<String> ingredients, int likeCount, double avarageRating, int totalRateCount, User user, List<Review> reviews, List<Like> likes, Image image) {
           this.id = id;
           this.title = title;
           this.instuction = instuction;
@@ -55,7 +55,7 @@ public class Recipe {
           this.ingredients = ingredients;
           this.likeCount = likeCount;
           this.avarageRating = avarageRating;
-          this.totalReviews = totalReviews;
+          this.totalRateCount = totalRateCount;
           this.user = user;
           this.reviews = reviews;
           this.likes = likes;
@@ -153,15 +153,15 @@ public class Recipe {
           this.avarageRating = avarageRating;
      }
 
-     public int getTotalReviews() {
-          return totalReviews;
-     }
+    public int getTotalRateCount() {
+        return totalRateCount;
+    }
 
-     public void setTotalReviews(int totalReviews) {
-          this.totalReviews = totalReviews;
-     }
+    public void setTotalRateCount(int totalRateCount) {
+        this.totalRateCount = totalRateCount;
+    }
 
-     public User getUser() {
+    public User getUser() {
           return user;
      }
 
@@ -191,5 +191,15 @@ public class Recipe {
 
      public void setImage(Image image) {
           this.image = image;
+     }
+
+
+
+
+     public double calculateAverageRating() {
+         return reviews.stream()
+                 .mapToInt(Review::getStars)
+                 .average()
+                 .orElse(0.0);
      }
 }

@@ -16,6 +16,9 @@ public class RecipeDto {
         private String cuisine;
         private ImageDto imageDto;
         private Long like;
+        private double avarageRating;
+        private int totalRateCount;
+        private ReviewDto reviewDto;
 
 
 
@@ -108,5 +111,29 @@ public class RecipeDto {
 
         public void setUser(UserDto user) {
                 this.user = user;
+        }
+
+        public double getAvarageRating() {
+                return avarageRating;
+        }
+
+        public void setAvarageRating(double avarageRating) {
+                this.avarageRating = avarageRating;
+        }
+
+        public ReviewDto getReviewDto() {
+                return reviewDto;
+        }
+
+        public void setReviewDto(ReviewDto reviewDto) {
+                this.reviewDto = reviewDto;
+        }
+
+        public int getTotalRateCount() {
+                return totalRateCount;
+        }
+
+        public void setTotalRateCount(int totalRateCount) {
+                this.totalRateCount = totalRateCount;
         }
 }

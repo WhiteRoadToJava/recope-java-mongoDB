@@ -106,6 +106,10 @@ public class RecipeServiceImpl implements RecipeService {
                 Optional<Image> image = Optional.ofNullable(imageRepository.findByRecipeId(recipe.getId()));
                 image.map(img -> modelMapper.map(img, ImageDto.class)).ifPresent(recipeDto::setImageDto);
 
+                double averageReviews = recipe.calculateAverageRating();
+                int totalRevoreCount = recipe.getTotalRateCount();
+                recipeDto.setTotalRateCount(totalRevoreCount);
+                recipeDto.setAvarageRating(averageReviews);
 
 
                 recipeDto.setUser(userDto);
